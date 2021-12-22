@@ -34,10 +34,11 @@ def getImagesAndLabels(path):
 
 # ----------- train images function ---------------
 def TrainImages():
-    recognizer = cv2.face_LBPHFaceRecognizer.create()
+    recognizer = cv2.face.LBPHFaceRecognizer_create()
     harcascadePath = "haarcascade_frontalface_default.xml"
     detector = cv2.CascadeClassifier(harcascadePath)
     faces, Id = getImagesAndLabels("TrainingImageLabel")
+    Thread(target = recognizer.train(faces, np.array(Id))).start()
     Thread(target = recognizer.train(faces, np.array(Id))).start()
     # Below line is optional for a visual counter effect
     Thread(target = counter_img("TrainingImageLabel")).start()
